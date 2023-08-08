@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 
-class BaseScreen extends StatelessWidget {
+class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
+
+  @override
+  State<BaseScreen> createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends State<BaseScreen> {
+  int currentIndex = 0;
+  final pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +20,11 @@ class BaseScreen extends StatelessWidget {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white.withAlpha(100),
         type: BottomNavigationBarType.fixed,
+        currentIndex: currentIndex,
+        onTap: (value) => setState(() {
+          currentIndex = value;
+          pageController.jumpToPage(value);
+        }),
         items: const [
           BottomNavigationBarItem(
               label: "Home",
@@ -35,8 +48,23 @@ class BaseScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: Container(
-        color: Colors.red,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.green,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.yellow,
+          )
+        ],
       ),
     );
   }
