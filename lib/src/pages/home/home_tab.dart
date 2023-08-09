@@ -99,7 +99,6 @@ class _HomeTabState extends State<HomeTab> {
             //itens
             Expanded(
               child: GridView.builder(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
