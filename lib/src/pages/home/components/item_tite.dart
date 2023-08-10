@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 import 'package:quitanda/src/model/item_model.dart';
+import 'package:quitanda/src/pages/product/product_screen.dart';
 import 'package:quitanda/src/utils/utils_services.dart';
 
 class ItemTite extends StatelessWidget {
@@ -13,50 +14,60 @@ class ItemTite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          elevation: 1,
-          shadowColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                //Imagem
-                Expanded(child: Image.asset(item.imgUrl)),
+        GestureDetector(
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProductScreen(
+                    item: item,
+                  ))),
+          child: Card(
+            elevation: 1,
+            shadowColor: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //Imagem
+                  Expanded(
+                      child: Hero(
+                          tag: item.imgUrl, child: Image.asset(item.imgUrl))),
 
-                //nome
-                Text(
-                  item.itemName,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+                  //nome
+                  Text(
+                    item.itemName,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
 
-                //Preco
-                Row(
-                  children: [
-                    Text(
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customSwatchColor),
-                      utils.priceToCurrency(item.price),
-                    ),
-                    Text(
-                      '/${item.unit}',
-                      style: TextStyle(
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
-                    )
-                  ],
-                )
-              ],
+                  //Preco
+                  Row(
+                    children: [
+                      Text(
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.customSwatchColor),
+                        utils.priceToCurrency(item.price),
+                      ),
+                      Text(
+                        '/${item.unit}',
+                        style: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
+
+        // Adicionar ao carrinho
         Positioned(
             top: 4,
             right: 4,
