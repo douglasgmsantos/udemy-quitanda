@@ -35,7 +35,6 @@ class _CartTabState extends State<CartTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: CustomColors.customSwatchColor,
         title: const Text("Carrinho"),
       ),
       body: Column(
