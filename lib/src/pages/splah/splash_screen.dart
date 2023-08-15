@@ -38,7 +38,7 @@ class _SplaceScreenState extends State<SplaceScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             AppNameWidget(
-              greenTitleColor: Colors.red,
+              greenTitleColor: Colors.white,
               textSize: 40,
             ),
             SizedBox(

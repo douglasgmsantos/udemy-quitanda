@@ -6,6 +6,7 @@ import 'package:quitanda/src/pages/home/components/category_title.dart';
 import 'package:quitanda/src/config/app_data.dart' as app_data;
 import 'package:quitanda/src/pages/home/components/item_tite.dart';
 import 'package:quitanda/src/pages/shared/app_name_widget.dart';
+import 'package:quitanda/src/pages/shared/custom_shimmer.dart';
 import 'package:quitanda/src/utils/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
@@ -19,6 +20,15 @@ class _HomeTabState extends State<HomeTab> {
   String selectedCategory = "Frutas";
 
   final UtilsServices utilsService = UtilsServices();
+
+  @override
+  void initState() {
+    Future.delayed(
+        const Duration(seconds: 2), () => setState(() => isLoading = false));
+    super.initState();
+  }
+
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -93,36 +103,63 @@ class _HomeTabState extends State<HomeTab> {
               Container(
                 padding: const EdgeInsets.only(top: 10),
                 height: 40,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, index) => CategoryTitle(
-                          onPressed: () {
-                            setState(() {
-                              selectedCategory = app_data.categories[index];
-                            });
-                          },
-                          category: app_data.categories[index],
-                          isSelected:
-                              selectedCategory == app_data.categories[index],
-                        ),
-                    separatorBuilder: (_, index) => const SizedBox(width: 10),
-                    itemCount: app_data.categories.length),
+                child: !isLoading
+                    ? ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) => CategoryTitle(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = app_data.categories[index];
+                                });
+                              },
+                              category: app_data.categories[index],
+                              isSelected: selectedCategory ==
+                                  app_data.categories[index],
+                            ),
+                        separatorBuilder: (_, index) =>
+                            const SizedBox(width: 10),
+                        itemCount: app_data.categories.length)
+                    : ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                            10,
+                            (index) => Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(right: 12),
+                                child: const CustomShimmer(
+                                    height: 20, width: 50))),
+                      ),
               ),
 
               //itens
               Expanded(
-                child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 9 / 11.5),
-                    itemCount: app_data.items.length,
-                    itemBuilder: (_, index) => ItemTite(
-                        item: app_data.items[index],
-                        cartAnimationMethod: itemSelectedCartAnimation)),
+                child: !isLoading
+                    ? GridView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                childAspectRatio: 9 / 11.5),
+                        itemCount: app_data.items.length,
+                        itemBuilder: (_, index) => ItemTite(
+                            item: app_data.items[index],
+                            cartAnimationMethod: itemSelectedCartAnimation))
+                    : GridView.count(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 9 / 11.5,
+                        children: List.generate(
+                            10,
+                            (index) => CustomShimmer(
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  borderRadius: BorderRadius.circular(20),
+                                )),
+                      ),
               )
             ],
           ),
