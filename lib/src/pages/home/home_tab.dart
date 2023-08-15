@@ -6,6 +6,7 @@ import 'package:quitanda/src/pages/home/components/category_title.dart';
 
 import 'package:quitanda/src/config/app_data.dart' as app_data;
 import 'package:quitanda/src/pages/home/components/item_tite.dart';
+import 'package:quitanda/src/utils/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -16,6 +17,8 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   String selectedCategory = "Frutas";
+
+  final UtilsServices utilsService = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,9 @@ class _HomeTabState extends State<HomeTab> {
           Padding(
             padding: const EdgeInsets.only(top: 15, right: 15),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                utilsService.showToast(message: "testand");
+              },
               child: Badge(
                 backgroundColor: CustomColors.customContrastColors,
                 label: const Text(
