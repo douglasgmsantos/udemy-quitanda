@@ -5,6 +5,7 @@ import 'package:quitanda/src/pages/home/components/category_title.dart';
 
 import 'package:quitanda/src/config/app_data.dart' as app_data;
 import 'package:quitanda/src/pages/home/components/item_tite.dart';
+import 'package:quitanda/src/pages/shared/app_name_widget.dart';
 import 'package:quitanda/src/utils/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
@@ -33,22 +34,12 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title:
-            Text.rich(TextSpan(style: const TextStyle(fontSize: 30), children: [
-          TextSpan(
-              style: TextStyle(color: CustomColors.customSwatchColor),
-              text: "Green"),
-          TextSpan(
-              style: TextStyle(color: CustomColors.customContrastColors),
-              text: "grocer")
-        ])),
+        title: const AppNameWidget(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 15, right: 15),
             child: GestureDetector(
-              onTap: () {
-                utilsService.showToast(message: "testand");
-              },
+              onTap: () {},
               child: Badge(
                 backgroundColor: CustomColors.customContrastColors,
                 label: const Text(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quitanda/src/pages/auth/sign_in_screen.dart';
+import 'package:quitanda/src/pages/splah/splash_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
           primarySwatch: Colors.green,
           scaffoldBackgroundColor: Colors.white.withAlpha(190)),
       debugShowCheckedModeBanner: false,
-      home: const SignInScreen(),
+      home: const SplaceScreen(),
     );
   }
 }
