@@ -24,9 +24,11 @@ class _BaseScreenState extends State<BaseScreen> {
         unselectedItemColor: Colors.white.withAlpha(100),
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
-        onTap: (value) => setState(() {
-          currentIndex = value;
-          pageController.jumpToPage(value);
+        onTap: (index) => setState(() {
+          currentIndex = index;
+          pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.fastEaseInToSlowEaseOut);
         }),
         items: const [
           BottomNavigationBarItem(

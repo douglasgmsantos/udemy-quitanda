@@ -1,5 +1,4 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
-import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 import 'package:quitanda/src/pages/home/components/category_title.dart';
@@ -25,9 +24,8 @@ class _HomeTabState extends State<HomeTab> {
     GlobalKey<CartIconKey> globalKeyCartItem = GlobalKey<CartIconKey>();
     late Function(GlobalKey) runAddToCartAnimation;
 
-    void itemSelectedCartAnimation(GlobalKey gkImage) {
-      runAddToCartAnimation(gkImage);
-    }
+    void itemSelectedCartAnimation(GlobalKey gkImage) =>
+        runAddToCartAnimation(gkImage);
 
     return Scaffold(
       //App bar
@@ -71,10 +69,10 @@ class _HomeTabState extends State<HomeTab> {
       ),
 
       body: AddToCartAnimation(
-        gkCart: globalKeyCartItem,
-        previewDuration: const Duration(milliseconds: 10),
-        previewCurve: Curves.bounceIn,
-        receiveCreateAddToCardAnimationMethod: (runAddToCartAnimationAction) {
+        cartKey: globalKeyCartItem,
+        jumpAnimation: const JumpAnimationOptions(
+            curve: Curves.ease, duration: Duration(microseconds: 300)),
+        createAddToCartAnimation: (runAddToCartAnimationAction) {
           runAddToCartAnimation = runAddToCartAnimationAction;
         },
         child: Padding(
